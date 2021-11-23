@@ -2,11 +2,12 @@
  * Parallel and Distributed Systems 2020/2021
  * @author Fabio Murgese
  *
+ * Usage: ./create_input_file 1000 100 123 name_file.csv
  * */
 
-#include "iostream"
-#include "fstream"
-#include "cmath"
+#include <iostream>
+#include <fstream>
+#include <cmath>
 
 void GenerateFile(int len, int max, int seed, char* name) {
 
