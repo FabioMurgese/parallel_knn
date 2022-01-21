@@ -34,7 +34,7 @@ void GenerateFile(int len, int max, int seed, char* name) {
 
 }
 
-int main (int argc, char* argv[]) {
+/*int main (int argc, char* argv[]) {
 
     int len = atoi(argv[1]);
     int max = atoi(argv[2]);
@@ -43,6 +43,6 @@ int main (int argc, char* argv[]) {
     GenerateFile(len, max, seed, name);
 
     return 0;
-}
+}*/
 
 
