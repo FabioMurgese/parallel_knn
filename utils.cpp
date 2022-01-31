@@ -11,15 +11,11 @@ float euclidean_distance(std::pair<float,float> &p1, std::pair<float,float> &p2)
 }
 
 // prints the first K neighbors in a vector, concatenating them with a ", "
-std::string printNeighbors(std::vector<std::pair<int,float>> &neighbors, int k) {
-    std::string res;
+std::string write_best_neighbors(std::vector<std::pair<float, int>> &neighbors, int k) {
+    std::string best_neighs;
+    // iterate until last but one item to better format the string without comma in the end
     for(int i=0; i < k - 1; i++) {
-        res += std::to_string(neighbors[i].first) + ", ";
+        best_neighs += std::to_string(neighbors[i].second+1) + ", ";  // add 1 because input file counting starts from 1
     }
-    return (res += std::to_string(neighbors[k - 1].first));
+    return (best_neighs += std::to_string(neighbors[k - 1].second+1));
 }
-
-
-/*float euclidean_distance(float &x1, float &y1, float &x2, float &y2) {
-    return pow(x2 - x1, 2) + pow(y2 - y1, 2);
-}*/
