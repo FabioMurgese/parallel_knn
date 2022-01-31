@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
             // vector to store neighbors for each data point
             vector<pair<float, int>> neighbors;
 
-            /*// vector implementation
+            // vector implementation
             // compute and store distance and item in the vector
             for (int j=0; j<data.size(); j++) {
                 if (i==j)
@@ -63,38 +63,10 @@ int main(int argc, char* argv[]) {
             sort_heap(neighbors.begin(), neighbors.end());
 
             // take only first k items from sorted neighbors
-            vector<pair<float, int>> best_neighbors(neighbors.begin(), neighbors.begin()+k);*/
+            vector<pair<float, int>> best_neighbors(neighbors.begin(), neighbors.begin()+k);
 
-            /*// insert firsts k items without checking
-            int stop = 0;
-            // check if we need to insert the node itself --> one more iteration
-            // otherwise we lose the value of item i==j in next cycle
-            if (i<k)
-                stop = k+1;
-            else
-                stop = k;
 
-            // insert k items in vector
-            for (int j=0; j<stop; j++) {
-                if (i==j)
-                    continue;
-                neighbors.push_back(move(make_pair(euclidean_distance(data[i], data[j]), j)));
-            }
-
-            // use priority queue to store the neighbors
-            priority_queue<pair<float, int>> pqueue;
-            for (int n=0; n<neighbors.size(); n++) {
-                pqueue.push(neighbors[n]);
-            }
-
-            // insert all the other points, calculating their distances
-            for(int j=stop; j<data.size(); j++) {
-                if(j==i)        // (except itself)
-                    continue;
-                pqueue.push(move(make_pair(euclidean_distance(data[i], data[j]), j)));
-            }*/
-
-            // priority queue implementation (better complexity)
+            /*// priority queue implementation (better complexity)
             // use priority queue to store the neighbors
             priority_queue<pair<float, int>, vector<pair<float, int>>, asc_order> pqueue;
             for(int j=0; j<data.size(); j++) {
@@ -105,7 +77,7 @@ int main(int argc, char* argv[]) {
             for (int r=0; r<k; r++) {
                 neighbors.push_back(pqueue.top());
                 pqueue.pop();
-            }
+            }*/
 
             results.append(to_string(i+1) + ": { " + write_best_neighbors(neighbors, k) + " }\n");
         }
