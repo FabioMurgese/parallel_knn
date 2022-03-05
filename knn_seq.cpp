@@ -17,7 +17,7 @@
 
 using namespace std;
 
-// Structure of the operator
+/*// Structure of the operator
 // overloading for comparison
 struct asc_order {
     constexpr bool operator()(
@@ -27,7 +27,7 @@ struct asc_order {
     {
         return a.first > b.first;
     }
-};
+};*/
 
 int main(int argc, char* argv[]) {
 
