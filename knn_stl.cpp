@@ -17,17 +17,73 @@
 #include <thread>
 #include "read_file.h"
 #include "utils.h"
+#include "myqueue.cpp"
 #include "utimer.cpp"
 
 using namespace std;
 
 // function for the single worker to execute
-void job() {
+void job(vector<pair<float,float>> &data, int k, vector<myqueue<string>*> &out,
+         int nw, int threadid, int size) {
 
+    myqueue<string>* myqueue = out[threadid];
+
+    for (int i=threadid; i<size; i+=nw) {
+        // list where will be stored neighbors for element i
+        vector<pair<float, int>> neighbors;
+
+        // compute and store distance and item in the vector
+        for (int j=0; j<data.size(); j++) {
+            if (i==j)
+                continue;
+            neighbors.push_back(move(make_pair(euclidean_distance(data[i], data[j]), j)));
+        }
+
+        // sort neighbors by distance
+        make_heap(neighbors.begin(), neighbors.end());
+        sort_heap(neighbors.begin(), neighbors.end());
+
+        myqueue->push(to_string(i+1) + ": { " + write_best_neighbors(neighbors, k) + " }\n");
+    }
+    // notify termination status
+    myqueue->push("");
 }
 
 // function for the writer to execute
-void print() {
+void print(vector<myqueue<string>*> &out, int nw) {
+    string s = "";
+    string to_flush = "";
+
+    ofstream outfile;
+    outfile.open("output_stl.txt");
+
+    int current = 0;
+    int previous = 0;
+
+    // for each worker to run
+    while (nw > 0) {
+
+        // pop from current queue
+        to_flush = out[current]->pop();
+
+        previous = current;
+        current = (current+1) % nw;
+
+        if (to_flush == "") {
+            // erase the EOS previously received
+            out.erase(out.begin()+previous);
+            nw--;  // decrease number of workers
+
+            if (current == nw) {
+                current = 0;
+            }
+        } else {
+            s.append(to_flush);
+        }
+        // write and close file
+        outfile << s << endl;
+        outfile.close();
+    }
 
 }
 
@@ -43,7 +99,7 @@ int main(int argc, char* argv[]) {
 
     vector<thread> threads;             // workers
     vector<pair<float, float>> data;    // points
-    vector<queue<string>*> out(nw);
+    vector<myqueue<string>*> out(nw);
 
     {
         utimer reader("Reading input file");
@@ -58,10 +114,10 @@ int main(int argc, char* argv[]) {
         // number of workers as nw
         for (int i=0; i<nw; ++i) {
             // output queue for the single worker
-            out[i] = new queue<string>();
+            out[i] = new myqueue<string>();
 
-            threads.push_back(move(thread([](){
-                job();
+            threads.push_back(move(thread([&data, k, &out, nw, i, size](){
+                job(data, k, out, nw, i, size);
             })));
 
             // Create a cpu_set_t object representing a set of CPUs. Clear it and mark
@@ -78,8 +134,8 @@ int main(int argc, char* argv[]) {
         }
 
         // writer to clear out the queues
-        threads.push_back(move(thread([]() {
-            print();
+        threads.push_back(move(thread([&out, nw]() {
+            print(out, nw);
         })));
 
         // waiting for the threads to finish execution

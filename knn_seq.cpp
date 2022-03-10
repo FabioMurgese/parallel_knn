@@ -17,17 +17,6 @@
 
 using namespace std;
 
-/*// Structure of the operator
-// overloading for comparison
-struct asc_order {
-    constexpr bool operator()(
-            pair<float, int> const& a,
-            pair<float, int> const& b)
-    const noexcept
-    {
-        return a.first > b.first;
-    }
-};*/
 
 int main(int argc, char* argv[]) {
 
