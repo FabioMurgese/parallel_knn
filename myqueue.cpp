@@ -50,4 +50,4 @@ public:
 // needed something to represent the EOS
 // here we use null
 //
-#define EOS NULL
+#define EOS nullopt

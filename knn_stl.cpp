@@ -4,8 +4,8 @@
  *
  * Standard library parallel implementation of Knn.
  *
- * Usage: ./knn_stl input.csv 20 8
- *          for 8 workers (+1 writer) computing 20-nn over input file
+ * Usage: ./knn_stl input.csv 10 4
+ *          for 4 workers (+1 writer) computing 10-nn over input file
  * */
 
 #include <cstdlib>
@@ -60,7 +60,7 @@ void print(vector<myqueue<string>*> &out, int nw) {
     int current = 0;
     int previous = 0;
 
-    // for each worker to run
+    // for each worker running
     while (nw > 0) {
 
         // pop from current queue
@@ -80,11 +80,10 @@ void print(vector<myqueue<string>*> &out, int nw) {
         } else {
             s.append(to_flush);
         }
-        // write and close file
-        outfile << s << endl;
-        outfile.close();
     }
-
+    // write and close file
+    outfile << s << endl;
+    outfile.close();
 }
 
 int main(int argc, char* argv[]) {

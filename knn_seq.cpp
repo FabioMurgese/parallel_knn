@@ -19,6 +19,10 @@ using namespace std;
 
 
 int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        cout << "Usage: " + string (argv[0]) + " input_file k" << endl;
+        return -1;
+    }
 
     char *file_name = argv[1];          // input file name
     int k = atoi(argv[2]);         // k param

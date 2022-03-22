@@ -6,8 +6,8 @@
 
 #include "utils.h"
 
-float euclidean_distance(std::pair<float,float> &p1, std::pair<float,float> &p2) {
-    return pow(p2.first - p1.first, 2) + pow(p2.second - p1.second, 2);
+float euclidean_distance(std::pair<float,float> &p, std::pair<float,float> &q) {
+    return pow(q.first - p.first, 2) + pow(q.second - p.second, 2);
 }
 
 // prints the first K neighbors in a vector, concatenating them with a ", "
