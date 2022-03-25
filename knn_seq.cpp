@@ -11,8 +11,8 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "read_file.h"
-#include "utils.h"
+#include "read_file.cpp"
+#include "utils.cpp"
 #include "utimer.cpp"
 
 using namespace std;

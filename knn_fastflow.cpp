@@ -15,8 +15,8 @@
 #include <fstream>
 #include <algorithm>
 #include <thread>
-#include "read_file.h"
-#include "utils.h"
+#include "read_file.cpp"
+#include "utils.cpp"
 #include "myqueue.cpp"
 #include "utimer.cpp"
 

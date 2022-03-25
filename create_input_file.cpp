@@ -2,7 +2,7 @@
  * Parallel and Distributed Systems 2020/2021
  * @author Fabio Murgese
  *
- * Usage: ./create_input_file 1000 100 123 name_file.csv
+ * Usage: ./create_input_file 10000 100 123 name_file.csv
  * */
 
 #include <iostream>
@@ -23,8 +23,10 @@ void GenerateFile(int len, int max, int seed, char* name) {
         std::pair<float,float> point;
         point = std::make_pair(
                 // Use max as maximum span for the generated numbers
-                fmod((float)rand(), max),
-                fmod((float)rand(), max)
+                //fmod((float)rand(), max),
+                //fmod((float)rand(), max)
+                (float)rand() / (float)(RAND_MAX/max),
+                (float)rand() / (float)(RAND_MAX/max)
                 );
         // Write points to previously created file
         file << point.first << "," << point.second << std::endl;
@@ -34,7 +36,7 @@ void GenerateFile(int len, int max, int seed, char* name) {
 
 }
 
-/*int main (int argc, char* argv[]) {
+int main (int argc, char* argv[]) {
 
     int len = atoi(argv[1]);
     int max = atoi(argv[2]);
@@ -43,6 +45,6 @@ void GenerateFile(int len, int max, int seed, char* name) {
     GenerateFile(len, max, seed, name);
 
     return 0;
-}*/
+}
 
 
