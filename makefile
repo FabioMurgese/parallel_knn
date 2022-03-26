@@ -1,14 +1,13 @@
 FF_ROOT = ./fastflow
-#FF_ROOT = /home/fabmoore/Documents/fastflow
 
 CXX = g++ -std=c++17
 INCLUDES = -I $(FF_ROOT)
-CXXFLAGS = -g #-O3 #-fopenmp
+CXXFLAGS = -g #-fopenmp
 
 LDFLAGS = -pthread
 OPTFLAGS = -O3 -finline-functions #-fopt-info-vec-optimized # -DNDEBUG -ftree-vectorize #-fopt-info-vec-missed -fopt-info-vec
 
-TARGETS = knn_stl knn_fastflow knn_seq #utimer utils create_input_file read_file knn_seq knn_stl knn_fastflow
+TARGETS = knn_stl knn_fastflow knn_seq
 
 .PHONY: all clean cleanall
 .SUFFIXES: .cpp
@@ -28,7 +27,6 @@ clean	:
 	rm -f $(TARGETS)
 
 cleanall	:	clean
-	#rm -f *.txt *~
 	rm -f *.o *~
 
 cleanoutputs	 :

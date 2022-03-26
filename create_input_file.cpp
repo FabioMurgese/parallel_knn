@@ -23,8 +23,6 @@ void GenerateFile(int len, int max, int seed, char* name) {
         std::pair<float,float> point;
         point = std::make_pair(
                 // Use max as maximum span for the generated numbers
-                //fmod((float)rand(), max),
-                //fmod((float)rand(), max)
                 (float)rand() / (float)(RAND_MAX/max),
                 (float)rand() / (float)(RAND_MAX/max)
                 );
