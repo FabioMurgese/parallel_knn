@@ -19,6 +19,9 @@ knn_fastflow: $(OBJECTS) knn_fastflow.o
 
 knn_stl: $(OBJECTS) knn_stl.o
 	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -o $@ $(OBJECTS) knn_stl.o $(LDFLAGS)
+	
+knn_seq: $(OBJECTS) knn_seq.o
+	$(CXX) $(CXXFLAGS) $(OPTFLAGS) -o $@ $(OBJECTS) knn_seq.o $(LDFLAGS)
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) $(OPTFLAGS) -o $@ -c $< $(LDFLAGS)

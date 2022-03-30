@@ -119,16 +119,15 @@ int main(int argc, char* argv[]) {
                 job(data, k, out, nw, i, size);
             })));
 
-            // Create a cpu_set_t object representing a set of CPUs. Clear it and mark
-            // only CPU i as set.
+            // create a cpu_set_t object representing a set of CPUs
+            // clear it and mark only CPU i as set
             cpu_set_t cpuset;
             CPU_ZERO(&cpuset);
             CPU_SET(i, &cpuset);
             // Give the native handler a mask that tells on which core the thread should run
             int rc = pthread_setaffinity_np(threads[i].native_handle(), sizeof(cpu_set_t), &cpuset);
-            if (rc != 0) {  // Of course, we'll be limited by Hardware and this can fail
+            if (rc != 0) {  // possible failure by hardware limitations
                 std::cerr << "Error calling pthread_setaffinity_np: " << rc << "\n";
-                // std::cerr << "Warning: thread " << i << " isn't set to a specific CPU: setaffinity returned " << rc << "\n";
             }
         }
 

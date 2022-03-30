@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "read_file.cpp"
+#include "read_file.h"
 #include "utils.cpp"
 #include "utimer.cpp"
 
@@ -43,7 +43,6 @@ int main(int argc, char* argv[]) {
             // vector to store neighbors for each data point
             vector<pair<float, int>> neighbors;
 
-            // vector implementation
             // compute and store distance and item in the vector
             for (int j=0; j<data.size(); j++) {
                 if (i==j)
@@ -54,23 +53,6 @@ int main(int argc, char* argv[]) {
             // sort neighbors by distance
             make_heap(neighbors.begin(), neighbors.end());
             sort_heap(neighbors.begin(), neighbors.end());
-
-            // take only first k items from sorted neighbors
-            vector<pair<float, int>> best_neighbors(neighbors.begin(), neighbors.begin()+k);
-
-
-            /*// priority queue implementation (better complexity)
-            // use priority queue to store the neighbors
-            priority_queue<pair<float, int>, vector<pair<float, int>>, asc_order> pqueue;
-            for(int j=0; j<data.size(); j++) {
-                if(j==i)        // (except itself)
-                    continue;
-                pqueue.push(move(make_pair(euclidean_distance(data[i], data[j]), j)));
-            }
-            for (int r=0; r<k; r++) {
-                neighbors.push_back(pqueue.top());
-                pqueue.pop();
-            }*/
 
             results.append(to_string(i+1) + ": { " + write_best_neighbors(neighbors, k) + " }\n");
         }
