@@ -1,2 +1,6 @@
 /cmake-build-debug/
 .idea/
+.ipynb_checkpoints/
+img/
+server_results.csv
+thread_pininng_execs.txt

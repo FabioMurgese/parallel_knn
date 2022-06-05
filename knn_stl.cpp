@@ -32,16 +32,23 @@ void job(vector<pair<float,float>> &data, int k, vector<myqueue<string>*> &out,
         // list where will be stored neighbors for element i
         vector<pair<float, int>> neighbors;
 
-        // compute and store distance and item in the vector
-        for (int j=0; j<data.size(); j++) {
-            if (i==j)
-                continue;
-            neighbors.push_back(move(make_pair(euclidean_distance(data[i], data[j]), j)));
+	{
+		utimer t0("Prova");
+		// compute and store distance and item in the vector
+		for (int j=0; j<data.size(); j++) {
+		    if (i==j)
+		        continue;
+		    neighbors.push_back(move(make_pair(euclidean_distance(data[i], data[j]), j)));
         }
+	}
+        
 
-        // sort neighbors by distance
-        make_heap(neighbors.begin(), neighbors.end());
-        sort_heap(neighbors.begin(), neighbors.end());
+        {
+        	utimer t1("heap");	
+        	// sort neighbors by distance
+        	make_heap(neighbors.begin(), neighbors.end());
+        	sort_heap(neighbors.begin(), neighbors.end());
+        }
 
         myqueue->push(to_string(i+1) + ": { " + write_best_neighbors(neighbors, k) + " }\n");
     }
